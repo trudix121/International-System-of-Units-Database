@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Unit Type</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Întreaga înălțime a ferestrei */
+            margin: 0;
+            background-color: #f4f4f4; /* Culoare de fundal deschisă */
+            font-family: Arial, sans-serif; /* Font modern */
+            transition: background-color 0.3s, color 0.3s; /* Tranziție pentru culori */
+        }
+
+        .container {
+            background-color: white; /* Fundal alb pentru formular */
+            padding: 20px; /* Padding interior */
+            border-radius: 8px; /* Colțuri rotunjite */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Umbră pentru adâncime */
+            text-align: center; /* Centrarea textului */
+            transition: background-color 0.3s, box-shadow 0.3s; /* Tranziție pentru culori */
+        }
+
+        h1 {
+            margin-bottom: 20px; /* Spațiu sub titlu */
+        }
+
+        input[type="search"] {
+            padding: 10px; /* Padding interior pentru input */
+            width: 80%; /* Lățimea input-ului */
+            border: 1px solid #ccc; /* Bordură gri deschis */
+            border-radius: 4px; /* Colțuri rotunjite */
+            margin-bottom: 10px; /* Spațiu sub input */
+            transition: border-color 0.3s; /* Tranziție pentru bordură */
+        }
+
+        button {
+            padding: 10px 20px; /* Padding interior pentru buton */
+            background-color: #007BFF; /* Culoare de fundal albastră */
+            color: white; /* Culoare text alb */
+            border: none; /* Fără bordură */
+            border-radius: 4px; /* Colțuri rotunjite */
+            cursor: pointer; /* Cursor pointer la hover */
+            transition: background-color 0.3s; /* Tranziție pentru hover */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Culoare mai închisă la hover */
+        }
+
+        /* Stiluri pentru dark mode */
+        body.dark-mode {
+            background-color: #181818; /* Fundal întunecat */
+            color: #f4f4f4; /* Text deschis */
+        }
+
+        .container.dark-mode {
+            background-color: #242424; /* Fundal întunecat pentru container */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Umbră mai pronunțată */
+        }
+
+        input[type="search"].dark-mode {
+            border: 1px solid #555; /* Bordură mai închisă */
+            background-color: #333; /* Fundal întunecat pentru input */
+            color: #f4f4f4; /* Text deschis pentru input */
+        }
+
+        button.dark-mode {
+            background-color: #007BFF; /* Culoare de fundal albastră */
+        }
+
+        button.dark-mode:hover {
+            background-color: #0056b3; /* Culoare mai închisă la hover */
+        }
+
+        .toggle-button {
+            margin-bottom: 20px; /* Spațiu sub butonul de comutare */
+            padding: 10px 20px; /* Padding pentru butonul de comutare */
+            cursor: pointer; /* Cursor pointer */
+            border: none; /* Fără bordură */
+            border-radius: 4px; /* Colțuri rotunjite */
+            background-color: #007BFF; /* Culoare de fundal albastră */
+            color: white; /* Culoare text alb */
+            transition: background-color 0.3s; /* Tranziție pentru hover */
+        }
+
+        .toggle-button:hover {
+            background-color: #0056b3; /* Culoare mai închisă la hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <button class="toggle-button" id="toggleButton">Switch to Dark Mode</button>
+        <form action="/search" method="post">
+            <h1>Start Search A Unit Type!</h1>
+            <input type="search" placeholder="Energy" name="searched" required id="searchInput">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <script>
+        const toggleButton = document.getElementById('toggleButton');
+        const container = document.getElementById('container');
+        const searchInput = document.getElementById('searchInput');
+
+        toggleButton.addEventListener('click', () => {
+            // Comută clasele pentru dark mode
+            document.body.classList.toggle('dark-mode');
+            container.classList.toggle('dark-mode');
+            searchInput.classList.toggle('dark-mode');
+            toggleButton.classList.toggle('dark-mode');
+
+            // Schimbă textul butonului în funcție de modul activ
+            if (document.body.classList.contains('dark-mode')) {
+                toggleButton.textContent = 'Switch to Light Mode';
+            } else {
+                toggleButton.textContent = 'Switch to Dark Mode';
+            }
+        });
+    </script>
+</body>
+</html>

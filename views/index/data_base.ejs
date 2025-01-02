@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Types</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .unit-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #fff;
+            transition: box-shadow 0.3s;
+        }
+
+        .unit-card:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .unit-title {
+            font-size: 1.5em;
+            color: #007BFF;
+        }
+
+        .unit-details {
+            margin: 10px 0;
+        }
+
+        .measurements, .conversions {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #007BFF;
+        }
+
+        .measuring-instruments {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .measuring-instruments li {
+            margin: 5px 0;
+        }
+
+        .search-form {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .search-button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #0056b3;
+        }
+        /* Dark mode styles */
+body.dark-mode {
+    background-color: #333;
+    color: #f4f4f4;
+}
+
+.container.dark-mode {
+    background: #444;
+}
+
+.unit-card.dark-mode {
+    background-color: #555;
+    border-color: #666;
+}
+
+.measurements.dark-mode, .conversions.dark-mode {
+    background-color: #666;
+    border-left: 4px solid #007BFF;
+}
+
+.search-button.dark-mode {
+    background-color: #0056b3;
+}
+.toggle-button {
+    margin: 20px 0;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.toggle-button:hover {
+    background-color: #0056b3;
+}
+
+.toggle-button.dark-mode {
+    background-color: #0056b3;
+    color: #f4f4f4;
+}
+
+.toggle-button.dark-mode:hover {
+    background-color: #004494;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Unit Types</h1>
+        <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+        <% data.forEach(unit => { %>
+            <div class="unit-card">
+                <div class="unit-title"><%= unit.unit_type %> (<%= unit.symbol %>)</div>
+                <div class="unit-details">
+                    <strong>Measures:</strong> <%= unit.measures %><br>
+                </div>
+                <div class="measurements">
+                    <strong>Measuring Instruments:</strong>
+                    <ul class="measuring-instruments">
+                        <% unit.measuring_instruments.forEach(instrument => { %>
+                            <li><%= instrument %></li>
+                        <% }); %>
+                    </ul>
+                </div>
+                <div class="conversions">
+                    <strong>Conversions:</strong>
+                    <ul>
+                        <% for (const [key, value] of Object.entries(unit.conversions)) { %>
+                            <li><%= key %> (<%= value.symbol %>): <%= value.formula %></li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        <% }); %>
+
+        <form class="search-form" action="/search" method="POST">
+            <input type="text" class="search-input" placeholder="Search a new unit type" name="searched" required>
+            <button type="submit" class="search-button">Submit</button>
+        </form>
+    </div>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const container = document.querySelector('.container');
+            const unitCards = document.querySelectorAll('.unit-card');
+            const measurements = document.querySelectorAll('.measurements');
+            const conversions = document.querySelectorAll('.conversions');
+    
+            container.classList.toggle('dark-mode');
+            unitCards.forEach(card => card.classList.toggle('dark-mode'));
+            measurements.forEach(measurement => measurement.classList.toggle('dark-mode'));
+            conversions.forEach(conversion => conversion.classList.toggle('dark-mode'));
+            
+            const searchButton = document.querySelector('.search-button');
+            searchButton.classList.toggle('dark-mode');
+        }
+    </script>
+    
+</body>
+</html>

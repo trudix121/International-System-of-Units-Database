@@ -1,0 +1,4 @@
+local
+.idx/.data
+node_modules
+.env
