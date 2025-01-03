@@ -20,19 +20,21 @@ router.post('/search', async(req,res)=>{
 
 router.get('/data/:searched', async (req, res) => {
     const searched = req.params.searched;
-    const result = await db.find('base_units', 'derived_units', { 'unit_type': searched });
+    const result = await db.find('base_units', 'derived_units', { 'unit_type': searched});
 
-
+  // console.log(result)
     // Verificăm dacă unitatea a fost găsită
     if (result.finded === false) {
-        res.send('That Units Type doesn\'t exist in our database');
+        res.render('lib/error', { unit_type : searched})
     } else if (!Array.isArray(result.result)) {
         res.send('No units found for the specified type.');
     } else {
+       // console.log(result)
         if(result.type == 'derive_unit'){
             res.render('index/data_derived', { data: result.result });
         }
-        else if (result.type == 'base_unit'){
+        else if (result.type == 'base_unit') {
+      //      console.log(result.result)
             res.render('index/data_base', {data: result.result})
 
         }

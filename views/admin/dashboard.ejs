@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Unit</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #f4f4f4;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(30, 30, 46, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #b8b8b8;
+            font-weight: 500;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #2a2a3a;
+            border-radius: 8px;
+            background: #2a2a3a;
+            color: #fff;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #4a9eff;
+            box-shadow: 0 0 0 4px rgba(74, 158, 255, 0.1);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        .req-btn {
+            background: linear-gradient(135deg, #4ca8af, #45a049);
+            color: white;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+        }
+
+        .add-formula-btn {
+            background: linear-gradient(135deg, #4a9eff, #3b7fff);
+            color: white;
+            width: auto;
+        }
+
+        .add-formula-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(74, 158, 255, 0.2);
+        }
+
+        .remove-btn {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: white;
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border-radius: 8px;
+        }
+
+        .remove-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 68, 68, 0.2);
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #4a4a5a, transparent);
+            margin: 2rem 0;
+        }
+
+        .conversion-group {
+            background: rgba(42, 42, 58, 0.3);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .conversion-group .remove-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .conversion-group {
+                padding: 1rem;
+            }
+        }
+
+        .toggle-section {
+            background: rgba(42, 42, 58, 0.3);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 0.5rem;
+            color: #8888a0;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Add Unit</h2>
+        <form action="/admin/dashboard" method="POST">
+            <div class="form-group">
+                <label for="unit_type">Unit Type</label>
+                <select id="unit_type" name="unit_type" onchange="toggleUnitType()">
+                    <option value="base">Base Unit</option>
+                    <option value="derived">Derived Unit</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="unit_name">Unit Type Name
+                    <span class="tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">e.g., length, speed</span>
+                    </span>
+                </label>
+                <input type="text" id="unit_name" name="unit_name">
+            </div>
+
+            <div id="base_unit_fields" class="toggle-section">
+                <div class="form-group">
+                    <label for="base_unit">Base Unit
+                        <span class="tooltip">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="tooltip-text">e.g., meter</span>
+                        </span>
+                    </label>
+                    <input type="text" id="base_unit" name="base_unit">
+                </div>
+
+                <div class="form-group" id="formula_container"></div>
+                <button type="button" class="add-formula-btn" onclick="addFormula()">
+                    <i class="fas fa-plus"></i> Add Formula
+                </button>
+            </div>
+
+            <div id="derived_unit_fields" class="toggle-section" style="display: none;">
+                <div class="form-group">
+                    <label for="base_formula">Base Formula
+                        <span class="tooltip">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="tooltip-text">e.g., speed = distance / time</span>
+                        </span>
+                    </label>
+                    <input type="text" id="base_formula" name="base_formula">
+                </div>
+                <div class="form-group">
+                    <label for="unit">Unit
+                        <span class="tooltip">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="tooltip-text">e.g., meter per second</span>
+                        </span>
+                    </label>
+                    <input type="text" id="unit" name="unit">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="symbol">Symbol
+                    <span class="tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">e.g., m, m/s</span>
+                    </span>
+                </label>
+                <input type="text" id="symbol" name="symbol">
+            </div>
+
+            <div class="form-group">
+                <label for="measures">Measures
+                    <span class="tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">e.g., rate of change of position</span>
+                    </span>
+                </label>
+                <input type="text" id="measures" name="measures">
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="form-group">
+                <label>Measuring Instruments</label>
+                <div id="measuring_instruments_container"></div>
+                <button type="button" class="add-btn" onclick="addMeasuringInstrument()">
+                    <i class="fas fa-plus"></i> Add Instrument
+                </button>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="form-group">
+                <label>Conversions</label>
+                <div id="conversions_container"></div>
+                <button type="button" class="add-btn" onclick="addConversion()">
+                    <i class="fas fa-plus"></i> Add Conversion
+                </button>
+            </div>
+
+            <button type="submit" class="add-btn">
+                <i class="fas fa-save"></i> Save Unit
+            </button>
+                       <a href="/admin/requests"><button type="button" class="req-btn" >
+                        <i class="fas fa-save"></i> Show Requests
+                    </button></a> 
+        </form>
+    </div>
+
+    <script>
+        // Your existing JavaScript functions remain the same
+        function toggleUnitType() {
+            const unitType = document.getElementById('unit_type').value;
+            const baseFields = document.getElementById('base_unit_fields');
+            const derivedFields = document.getElementById('derived_unit_fields');
+
+            if (unitType === 'base') {
+                baseFields.style.display = 'block';
+                derivedFields.style.display = 'none';
+            } else {
+                baseFields.style.display = 'none';
+                derivedFields.style.display = 'block';
+            }
+        }
+
+        function addMeasuringInstrument() {
+            const container = document.getElementById('measuring_instruments_container');
+            const newGroup = document.createElement('div');
+            newGroup.className = 'input-group';
+            newGroup.innerHTML = `
+                <input type="text" name="measuring_instruments[]" placeholder="e.g., ruler, speedometer">
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">×</button>
+            `;
+            container.appendChild(newGroup);
+        }
+
+        function addFormula() {
+            const container = document.getElementById('formula_container');
+            const newFormula = document.createElement('div');
+            newFormula.className = 'formula-section input-group';
+            newFormula.innerHTML = `
+                <input type="text" name="formulas[]" placeholder="Enter mathematical formula">
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">×</button>
+            `;
+            container.appendChild(newFormula);
+        }
+
+        function addConversion() {
+            const container = document.getElementById('conversions_container');
+            const newConversion = document.createElement('div');
+            newConversion.className = 'conversion-group';
+            newConversion.innerHTML = `
+                <button type="button" class="remove-btn" onclick="removeConversion(this)">×</button>
+                <div class="form-group">
+                    <label>Unit Name</label>
+                    <input type="text" name="conversion_names[]" placeholder="e.g., kilometer, mph">
+                </div>
+                <div class="form-group">
+                    <label>Symbol</label>
+                    <input type="text" name="conversion_symbols[]" placeholder="e.g., km, mph">
+                </div>
+                <div class="form-group">
+                    <label>Formula</label>
+                    <input type="text" name="conversion_formulas[]" placeholder="e.g., 1 km = 1000 m">
+                </div>
+            `;
+            container.appendChild(newConversion);
+        }
+
+        function removeConversion(button) {
+            button.parentElement.remove();
+        }
+
+        // Add initial measuring instrument field
+        addMeasuringInstrument();
+    </script>
+</body>
+
+</html>

@@ -29,17 +29,6 @@
     workspace = {
       # Runs when a workspace is first created
       onCreate = {
-        default.openFiles = [
-          "README.md" "create.sql" "example.sql"
-        ];
-        # Example: install JS dependencies from NPM
-        setup = ''
-          initdb -D local
-          psql --dbname=postgres -c "ALTER USER \"user\" PASSWORD 'mypassword';"
-          psql --dbname=postgres -c "CREATE DATABASE youtube;"
-          psql --dbname=youtube -f create.sql
-          psql --dbname=youtube -f example.sql
-        '';
       };
       # Runs when the workspace is (re)started
       onStart = {

@@ -1,14 +1,11 @@
 const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
 const express = require('express'); // Changed 'e' to 'express' for clarity
+require('dotenv').config({path:'../.env'})
 
 const pool = new Pool({
-  user: 'user',
-  host: 'localhost',
-  database: 'si',
-  password: 'mypassword',
-  port: 5432,
-});
+  connectionString: process.env.POSTGRE_QUERY
+})
 
 async function createNewUser(email, password, role, username) {
   try {
@@ -51,7 +48,6 @@ async function updateUser(username, param, data) {
 
 async function run() {
  // const result = await updateUser('trudix', 'email', 'ac121@gmail.com');
-  console.log(result);
 }
 
 run();

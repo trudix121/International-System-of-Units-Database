@@ -13,32 +13,42 @@ const client = new MongoClient(uri, {
 const db = client.db('SI');
 
 async function find(collection, collection1, data) {
-    const collection2 = await db.collection(collection);  
-    const collection3 = await db.collection(collection1);  
+    const collection2 = await db.collection(collection);
+    const collection3 = await db.collection(collection1);
     const result = await collection2.find(data).toArray();
     if (result.length === 0) {
         const result1 = await collection3.find(data).toArray();
-        return result1.length === 0 ? { 'finded': false } : {'result':result1, 'type':'derive_unit'};
+        return result1.length === 0 ? { 'finded': false } : { 'result': result1, 'type': 'derive_unit', 'finded':true };
     }
-    return {'result':result , 'type':'base_unit'}
+    return { 'result': result, 'type': 'base_unit', 'finded': true }
+}
+async function find_data(collection, data) {
+    const col = db.collection(collection)
+
+    const r = await col.find(data).toArray()
+    if (r.length != 0) {
+        return r
+    } else {
+        return { 'finded': false }
+    }
 }
 
 async function insert(collection, data) {
     const collection1 = await db.collection(collection);
     await collection1.insertOne(data);
-    console.log('Data inserted successfully');
+   // console.log('Data inserted successfully');
 }
 
 async function update(collection, data, data_to_update) {
     const collection1 = await db.collection(collection);
     await collection1.updateOne(data, { $set: data_to_update });
-    console.log('Data updated successfully');
+   // console.log('Data updated successfully');
 }
 
 async function connectToDatabase() {
     try {
         await client.connect();
-        console.log('Database Successfully Connected');
+     //   console.log('Database Successfully Connected');
     } catch (error) {
         console.error('Error connecting to the database:', error);
     }
@@ -49,5 +59,7 @@ connectToDatabase().catch(console.dir);
 module.exports = {
     find,
     insert,
-    update
+    update,
+    db,
+    find_data
 };

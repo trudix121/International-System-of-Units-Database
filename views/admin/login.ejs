@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Înălțimea completă a ferestrei */
+    margin: 0;
+    background-color: #121212; /* Fundal întunecat */
+    font-family: Arial, sans-serif; /* Font modern */
+    color: #f4f4f4; /* Text deschis */
+    transition: background-color 0.3s, color 0.3s; /* Tranziție pentru culori */
+}
+
+.container {
+    background-color: #1e1e1e; /* Fundal întunecat pentru container */
+    padding: 20px; /* Padding interior */
+    border-radius: 8px; /* Colțuri rotunjite */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Umbre pentru adâncime */
+    width: 300px; /* Lățime fixă pentru container */
+    text-align: center; /* Text centrat */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Tranziție pentru culori */
+}
+
+h2 {
+    margin-bottom: 20px; /* Spațiu sub titlu */
+    color: #ffffff; /* Text alb pentru titlu */
+}
+
+.input-group {
+    margin-bottom: 15px; /* Spațiu sub grupul de input */
+}
+
+label {
+    margin-bottom: 5px; /* Spațiu sub etichetă */
+    color: #cccccc; /* Text gri deschis pentru etichete */
+}
+
+input {
+    padding: 10px; /* Padding interior pentru input */
+    border: 1px solid #444; /* Bordură gri închis */
+    border-radius: 4px; /* Colțuri rotunjite */
+    width: 100%; /* Lățimea input-ului */
+    background-color: #333; /* Fundal întunecat pentru input */
+    color: #f4f4f4; /* Text deschis pentru input */
+    box-sizing: border-box; /* Include padding în dimensiunea totală */
+    transition: border-color 0.3s; /* Tranziție pentru bordură */
+}
+
+input:focus {
+    border-color: #007bff; /* Bordură albastră la focus */
+    outline: none; /* Elimină conturul implicit */
+}
+
+button {
+    padding: 10px; /* Padding interior pentru buton */
+    background-color: #007BFF; /* Fundal albastru pentru buton */
+    color: white; /* Text alb */
+    border: none; /* Fără bordură */
+    border-radius: 4px; /* Colțuri rotunjite */
+    cursor: pointer; /* Cursor pointer la hover */
+    transition: background-color 0.3s; /* Tranziție pentru hover */
+}
+
+button:hover {
+    background-color: #0056b3; /* Fundal mai închis la hover */
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form class="login-form" method="POST" action="/admin">
+            <h2>Login Admin</h2>
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Connect</button>
+        </form>
+    </div>
+</body>
+</html>

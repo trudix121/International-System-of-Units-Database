@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Type Not Found</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            /* Dark background */
+            color: #ffffff;
+            /* White text */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background: #1e1e1e;
+            /* Slightly lighter background for the container */
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 30px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            /* Space between buttons */
+        }
+
+        .button {
+            background-color: #6200ea;
+            /* Button color */
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #3700b3;
+            /* Button color on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>We Apologize!</h1>
+        <p>The unit "<%= unit_type %>" does not exist in the database.</p>
+        <div class="button-container">
+            <a href="/" class="button">Go to Homepage</a>
+            <a href="/auth/login" class="button">Suggest a Unit Type</a>
+        </div>
+    </div>
+</body>
+
+</html>

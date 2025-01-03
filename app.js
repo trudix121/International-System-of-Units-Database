@@ -14,11 +14,14 @@ app.set('views', './views')
 
 // routers
 const index = require('./routers/index')
-
+const admin = require('./routers/admin')
+const auth = require('./routers/auth')
+const home = require('./routers/home')
 
 app.use('/', index)
-
-
+app.use('/admin', admin)
+app.use('/auth', auth)
+app.use('/users', home)
 
 app.listen(process.env.PORT, ()=>{
     console.log('SUCCESS')

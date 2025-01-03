@@ -1,105 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Unit Type</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Întreaga înălțime a ferestrei */
-            margin: 0;
-            background-color: #f4f4f4; /* Culoare de fundal deschisă */
-            font-family: Arial, sans-serif; /* Font modern */
-            transition: background-color 0.3s, color 0.3s; /* Tranziție pentru culori */
-        }
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the window */
+    margin: 0;
+    background-color: #121212; /* Dark background */
+    font-family: Arial, sans-serif; /* Modern font */
+    transition: background-color 0.3s, color 0.3s; /* Transition for colors */
+}
 
-        .container {
-            background-color: white; /* Fundal alb pentru formular */
-            padding: 20px; /* Padding interior */
-            border-radius: 8px; /* Colțuri rotunjite */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Umbră pentru adâncime */
-            text-align: center; /* Centrarea textului */
-            transition: background-color 0.3s, box-shadow 0.3s; /* Tranziție pentru culori */
-        }
+.container {
+    background-color: #1e1e1e; /* Dark background for the form */
+    padding: 20px; /* Inner padding */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    text-align: center; /* Center text */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Transition for colors */
+}
 
-        h1 {
-            margin-bottom: 20px; /* Spațiu sub titlu */
-        }
+h1 {
+    margin-bottom: 20px; /* Space below title */
+    color: #ffffff; /* White text for heading */
+}
 
-        input[type="search"] {
-            padding: 10px; /* Padding interior pentru input */
-            width: 80%; /* Lățimea input-ului */
-            border: 1px solid #ccc; /* Bordură gri deschis */
-            border-radius: 4px; /* Colțuri rotunjite */
-            margin-bottom: 10px; /* Spațiu sub input */
-            transition: border-color 0.3s; /* Tranziție pentru bordură */
-        }
+input[type="search"] {
+    padding: 10px; /* Inner padding for input */
+    width: 80%; /* Width of the input */
+    border: 1px solid #555; /* Darker border */
+    border-radius: 4px; /* Rounded corners */
+    margin-bottom: 10px; /* Space below input */
+    transition: border-color 0.3s; /* Transition for border */
+    background-color: #333; /* Dark background for input */
+    color: #f4f4f4; /* Light text for input */
+}
 
-        button {
-            padding: 10px 20px; /* Padding interior pentru buton */
-            background-color: #007BFF; /* Culoare de fundal albastră */
-            color: white; /* Culoare text alb */
-            border: none; /* Fără bordură */
-            border-radius: 4px; /* Colțuri rotunjite */
-            cursor: pointer; /* Cursor pointer la hover */
-            transition: background-color 0.3s; /* Tranziție pentru hover */
-        }
+button {
+    padding: 10px 20px; /* Inner padding for button */
+    background-color: #007BFF; /* Blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for hover */
+}
 
-        button:hover {
-            background-color: #0056b3; /* Culoare mai închisă la hover */
-        }
+button:hover {
+    background-color: #0056b3; /* Darker color on hover */
+}
 
-        /* Stiluri pentru dark mode */
-        body.dark-mode {
-            background-color: #181818; /* Fundal întunecat */
-            color: #f4f4f4; /* Text deschis */
-        }
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #181818; /* Dark background */
+    color: #f4f4f4; /* Light text */
+}
 
-        .container.dark-mode {
-            background-color: #242424; /* Fundal întunecat pentru container */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Umbră mai pronunțată */
-        }
+.container.dark-mode {
+    background-color: #242424; /* Dark background for container */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* More pronounced shadow */
+}
 
-        input[type="search"].dark-mode {
-            border: 1px solid #555; /* Bordură mai închisă */
-            background-color: #333; /* Fundal întunecat pentru input */
-            color: #f4f4f4; /* Text deschis pentru input */
-        }
+input[type="search"].dark-mode {
+    border: 1px solid #777; /* Darker border */
+    background-color: #333; /* Dark background for input */
+    color: #f4f4f4; /* Light text for input */
+}
 
-        button.dark-mode {
-            background-color: #007BFF; /* Culoare de fundal albastră */
-        }
+.toggle-button {
+    margin-bottom: 20px; /* Space below toggle button */
+    padding: 10px 20px; /* Padding for toggle button */
+    cursor: pointer; /* Pointer cursor */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #007BFF; /* Blue background */
+    color: white; /* White text */
+    transition: background-color 0.3s; /* Transition for hover */
+}
 
-        button.dark-mode:hover {
-            background-color: #0056b3; /* Culoare mai închisă la hover */
-        }
+.toggle-button:hover {
+    background-color: #0056b3; /* Darker color on hover */
+}
 
-        .toggle-button {
-            margin-bottom: 20px; /* Spațiu sub butonul de comutare */
-            padding: 10px 20px; /* Padding pentru butonul de comutare */
-            cursor: pointer; /* Cursor pointer */
-            border: none; /* Fără bordură */
-            border-radius: 4px; /* Colțuri rotunjite */
-            background-color: #007BFF; /* Culoare de fundal albastră */
-            color: white; /* Culoare text alb */
-            transition: background-color 0.3s; /* Tranziție pentru hover */
-        }
+.login-button {
+    margin-bottom: 20px; /* Space below login button */
+    padding: 10px 20px; /* Padding for login button */
+    cursor: pointer; /* Pointer cursor */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+    transition: background-color 0.3s; /* Transition for hover */
+}
 
-        .toggle-button:hover {
-            background-color: #0056b3; /* Culoare mai închisă la hover */
-        }
+.login-button:hover {
+    background-color: #218838; /* Darker color on hover */
+}
+
     </style>
 </head>
+
 <body>
     <div class="container" id="container">
         <button class="toggle-button" id="toggleButton">Switch to Dark Mode</button>
+        <a href="/auth/login"><button class="login-button">Login</button></a>
         <form action="/search" method="post">
             <h1>Start Search A Unit Type!</h1>
             <input type="search" placeholder="Energy" name="searched" required id="searchInput">
             <button type="submit">Search</button>
+
+           
         </form>
     </div>
 
@@ -122,6 +138,25 @@
                 toggleButton.textContent = 'Switch to Dark Mode';
             }
         });
+
+        // Gestionarea afișării formularului extins
+        const extendedForm = document.getElementById('extendedForm');
+        const showExtendedFormButton = document.getElementById('showExtendedForm');
+        const unitTypeSelect = document.getElementById('unitType');
+        const derivedFields = document.querySelectorAll('.derived-fields');
+
+        showExtendedFormButton.addEventListener('click', () => {
+            extendedForm.classList.toggle('active');
+        });
+
+        unitTypeSelect.addEventListener('change', () => {
+            if (unitTypeSelect.value === 'derived') {
+                derivedFields.forEach(field => field.style.display = 'block');
+            } else {
+                derivedFields.forEach(field => field.style.display = 'none');
+            }
+        });
     </script>
 </body>
+
 </html>

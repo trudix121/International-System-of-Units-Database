@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .button-container {
+            margin-top: 10px;
+        }
+
+        .button {
+            background-color: #007BFF;
+            /* Blue for view */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-right: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button.reject {
+            background-color: #dc3545;
+            /* Red for reject */
+        }
+
+        .button:hover {
+            opacity: 0.8;
+            /* Slightly transparent on hover */
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>User Requests</h1>
+
+<!-- Accepted Requests Section -->
+<h2>Accepted Requests</h2>
+<% const acceptedRequests = users.filter(user => user.accepted); %>
+<% if (acceptedRequests.length > 0) { %>
+    <% acceptedRequests.forEach(user => { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Unit Type</th>
+                    <th>Unit Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= user.suggest.unit_type %></td>
+                    <td><%= user.suggest.unit_name %></td>
+                    <td class="button-container">
+                        <a href="/admin/view/<%= user._id %>" class="button">View</a>
+                        <a href="/admin/delete/<%= user._id %>" class="button reject">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    <% }); %>
+<% } else { %>
+    <p>No accepted requests available.</p>
+<% } %>
+
+<!-- Rejected Requests Section -->
+<h2>Rejected Requests</h2>
+<% const rejectedRequests = users.filter(user => user.rejected); %>
+<% if (rejectedRequests.length > 0) { %>
+    <% rejectedRequests.forEach(user => { %>
+        <table style="margin-top:20px;">
+            <thead>
+                <tr>
+                    <th>Unit Type</th>
+                    <th>Unit Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= user.suggest.unit_type %></td>
+                    <td><%= user.suggest.unit_name %></td>
+                    <td class="button-container">
+                        <a href="/admin/view/<%= user._id %>" class="button">View</a>
+                        <a href="/admin/delete/<%= user._id %>" class="button reject">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    <% }); %>
+<% } else { %>
+    <p>No rejected requests available.</p>
+<% } %>
+
+<!-- Pending Requests Section -->
+<h2>Pending Requests</h2>
+<% const pendingRequests = users.filter(user => !user.accepted && !user.rejected); %>
+<% if (pendingRequests.length > 0) { %>
+    <% pendingRequests.forEach(user => { %>
+        <table style="margin-top:20px;">
+            <thead>
+                <tr>
+                    <th>Unit Type</th>
+                    <th>Unit Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= user.suggest.unit_type %></td>
+                    <td><%= user.suggest.unit_name %></td>
+                    <td class="button-container">
+                        <a href="/admin/view/<%= user._id %>" class="button">View</a>
+                        <a href="" onclick="confirm1()" class="button">Accept</a>
+                        <a href="/admin/reject/<%= user._id %>" class="button reject">Reject</a>
+                        <a href="/admin/delete/<%= user._id %>" class="button reject">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <script>
+            function confirm1() {
+                if (confirm('Do you want to add to main collection?')) {
+                    window.location.href = '/admin/add/<%= user._id %>'
+                }
+            }
+
+        </script>
+    <% }); %>
+<% } else { %>
+    <p>No pending requests available.</p>
+<% } %>
+
+
+</body>
+
+</html>

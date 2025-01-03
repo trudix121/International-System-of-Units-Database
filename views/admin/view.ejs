@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        .button {
+            background-color: #007BFF;
+            /* Blue for view */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-right: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button_back {
+            background-color: #007BFF;
+            /* Blue for view */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-right: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button.reject {
+            background-color: #dc3545;
+            /* Red for reject */
+        }
+
+        .button:hover {
+            opacity: 0.8;
+            /* Slightly transparent on hover */
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>View Request</h1>
+
+    <% if (user) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Unit Type</td>
+                    <td>
+                        <%= user.suggest.unit_type %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Unit Name</td>
+                    <td>
+                        <%= user.suggest.unit_name %>
+                    </td>
+                </tr>
+
+                <% if (user.suggest.base_unit) { %>
+                    <tr>
+                        <td>Base Unit</td>
+                        <td>
+                            <%= user.suggest.base_unit %>
+                        </td>
+                    </tr>
+                    <% } %>
+
+                        <% if (user.suggest.base_formula) { %>
+                            <tr>
+                                <td>Base Formula</td>
+                                <td>
+                                    <%= user.suggest.base_formula %>
+                                </td>
+                            </tr>
+                            <% } %>
+
+                                <% if (user.suggest.unit) { %>
+                                    <tr>
+                                        <td>Unit</td>
+                                        <td>
+                                            <%= user.suggest.unit %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+
+                                        <% if (user.suggest.symbol) { %>
+                                            <tr>
+                                                <td>Symbol</td>
+                                                <td>
+                                                    <%= user.suggest.symbol %>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+
+                                                <% if (user.suggest.measures) { %>
+                                                    <tr>
+                                                        <td>Measures</td>
+                                                        <td>
+                                                            <%= user.suggest.measures %>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+
+                                                        <% if (user.suggest.measuring_instruments &&
+                                                            user.suggest.measuring_instruments.length> 0) { %>
+                                                            <tr>
+                                                                <td>Measuring Instruments</td>
+                                                                <td>
+                                                                    <ul>
+                                                                        <%
+                                                                            user.suggest.measuring_instruments.forEach(instrument=>
+                                                                            { %><li>
+                                                                                <%= instrument %>
+                                                                            </li>
+                                                                            <% }); %>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                            <% } else { %>
+                                                                <tr>
+                                                                    <td>Measuring Instruments</td>
+                                                                    <td>N/A</td>
+                                                                </tr>
+                                                                <% } %>
+
+                                                                    <% if (user.suggest.conversion_names &&
+                                                                        user.suggest.conversion_names.length> 0) { %>
+                                                                        <tr>
+                                                                            <td>Conversion Names</td>
+                                                                            <td>
+                                                                                <ul>
+                                                                                    <%
+                                                                                        user.suggest.conversion_names.forEach(name=>
+                                                                                        { %><li>
+                                                                                            <%= name %>
+                                                                                        </li>
+                                                                                        <% }); %>
+                                                                                </ul>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <% } else { %>
+                                                                            <tr>
+                                                                                <td>Conversion Names</td>
+                                                                                <td>N/A</td>
+                                                                            </tr>
+                                                                            <% } %>
+
+                                                                                <% if (user.suggest.conversion_symbols
+                                                                                    &&
+                                                                                    user.suggest.conversion_symbols.length>
+                                                                                    0) { %>
+                                                                                    <tr>
+                                                                                        <td>Conversion Symbols</td>
+                                                                                        <td>
+                                                                                            <ul>
+                                                                                                <%
+                                                                                                    user.suggest.conversion_symbols.forEach(symbol=>
+                                                                                                    { %><li>
+                                                                                                        <%= symbol %>
+                                                                                                    </li>
+                                                                                                    <% }); %>
+                                                                                            </ul>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <% } else { %>
+                                                                                        <tr>
+                                                                                            <td>Conversion Symbols</td>
+                                                                                            <td>N/A</td>
+                                                                                        </tr>
+                                                                                        <% } %>
+
+                                                                                            <% if
+                                                                                                (user.suggest.conversion_formulas
+                                                                                                &&
+                                                                                                user.suggest.conversion_formulas.length>
+                                                                                                0) { %>
+                                                                                                <tr>
+                                                                                                    <td>Conversion
+                                                                                                        Formulas</td>
+                                                                                                    <td>
+                                                                                                        <ul>
+                                                                                                            <%
+                                                                                                                user.suggest.conversion_formulas.forEach(formula=>
+                                                                                                                { %><li>
+                                                                                                                    <%= formula
+                                                                                                                        %>
+                                                                                                                </li>
+                                                                                                                <% });
+                                                                                                                    %>
+                                                                                                        </ul>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <% } else { %>
+                                                                                                    <tr>
+                                                                                                        <td>Conversion
+                                                                                                            Formulas
+                                                                                                        </td>
+                                                                                                        <td>N/A</td>
+                                                                                                    </tr>
+                                                                                                    <% } %>
+
+            </tbody>
+        </table>
+
+        <!-- Action Buttons -->
+        <div class="button-container">
+            <!-- Assuming each user object has a unique _id field -->
+<!-- Assuming each user object has a unique _id field -->
+<% if (user.accepted===true) { %>
+    <a href="/admin/delete/<%= user._id %>" class="button reject">Delete</a>
+    <a href="/admin/requests/" class="button_back">Back</a>
+    <% } else if (user.rejected===true) { %>
+        <a href="/admin/delete/<%= user._id %>" class="button reject">Delete</a>
+        <a href="/admin/requests/" class="button_back">Back</a>
+        <% } else { %>
+            <a href="" onclick="confirm1()" class="button">Accept</a>
+            <a href="/admin/reject/<%= user._id %>" class="button reject">Reject</a>
+            <a href="/admin/delete/<%= user._id %>" class="button reject">Delete</a>
+            <a href="/admin/requests/" class="button_back">Back <%=user._id%> </a>
+            <% } %>
+
+
+        </div>
+
+        <script>
+            function confirm1(){
+                if(confirm('Do you want to add to main collection?'))
+                {
+                    window.location.href='/admin/add/<%= user._id %>'
+                }
+            }
+
+            </script>
+
+        <% } else { %>
+            <!-- If no user found -->
+            <p>No request found.</p>
+            <% } %>
+
+</body>
+
+</html>
