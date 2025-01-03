@@ -1,51 +1,47 @@
-# Proiect Node.js
+# International System of Units Database Project
 
-Acest proiect este o aplicație Node.js care ... [Adăugați o descriere scurtă a proiectului].
+Welcome to the International System of Units Database Project! This web application allows users to search for units, suggest new units, and provides administrative functionalities for managing unit requests.
 
-## Instalare
+## Features
 
-1. Asigurați-vă că aveți instalat Node.js și npm (sau yarn).
-2. Clonați repozitoriul:
-```
-bash
-   git clone [URL-ul repozitoriului]
-   
-```
-3. Navigați în directorul proiectului:
-```
-bash
-   cd [Numele directorului proiectului]
-   
-```
-4. Instalați dependențele:
-```
-bash
-   npm install 
-   
-```
-## Rulare
+### As a User:
+1. **Search for a Unit**: Explore the existing units in the database.
+2. **Suggest a New Unit**: Log in to submit a suggestion for a new unit.
 
-1.  Configurați variabilele de mediu din fișierul `.env` (sau `example.env`).
-2.  Lansați aplicația:
-```
-bash
-    npm start
-    
-```
-## Dependințe
+### As an Admin:
+1. **Add New Units**: Admins can freely add new units to the database. The database consists of two collections: `derived_units` and `base_units`, stored in MongoDB for flexibility.
+2. **Manage User Requests**: View all user requests and take actions such as Accept, Reject, or Delete.
 
-Următoarele pachete sunt necesare pentru funcționarea corectă a aplicației:
+## Getting Started
 
-* **express**: Framework web pentru Node.js.
-* **[Adăugați alte dependințe și descrieri scurte]**
+These instructions will help you set up a copy of the project on your local machine for development and testing purposes.
 
-**Exemple:**
+### Prerequisites
 
-* `body-parser`:  Pentru parsarea corpurilor cererilor HTTP.
-* `mongoose`:  Pentru interacțiunea cu baza de date MongoDB.
-* `jsonwebtoken`:  Pentru gestionarea token-urilor JWT.
+- Node.js
+- PostgreSQL
+- MongoDB
 
+### Installation
 
-## Alte informații
+1. **Clone the Repository**:
+   git clone https://github.com/trudix121/International-System-of-Units-Database.git
+2. **Navigate to the Project Directory**:
+   cd sidatabase
+3. **Install Dependencies**:
+   npm install
 
-[Adăugați informații suplimentare despre proiect, cum ar fi contribuții, licență, etc.]
+### Configuration
+
+1. Fill in all the information in the `example.env` file and then rename it to `.env`.
+2. Run the following command to set up the PostgreSQL database:
+   psql -U username -f postgre.sql
+
+### Running the Application
+
+To start the application, run the following command:
+npm run start
+
+## Conclusion
+
+You are now ready to explore the International System of Units Database! Enjoy your experience, and feel free to contribute to the project.
