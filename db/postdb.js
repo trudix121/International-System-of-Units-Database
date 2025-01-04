@@ -2,11 +2,9 @@ const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
 const express = require('express'); // Changed 'e' to 'express' for clarity
 require('dotenv').config({path:'../.env'})
-
 const pool = new Pool({
   connectionString: process.env.POSTGRE_QUERY
 })
-
 async function createNewUser(email, password, role, username) {
   try {
     const userCheckQuery = 'SELECT * FROM users WHERE email = $1 OR username = $2';
@@ -47,7 +45,12 @@ async function updateUser(username, param, data) {
 }
 
 async function run() {
- // const result = await updateUser('trudix', 'email', 'ac121@gmail.com');
+  try {
+    await pool.connect();
+    console.log('Connected to the database');
+  } catch (err) {
+    console.error('Failed to connect to the database:', err);
+  }
 }
 
 run();

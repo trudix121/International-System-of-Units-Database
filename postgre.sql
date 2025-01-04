@@ -15,3 +15,8 @@ CREATE TABLE admin (
     username VARCHAR(255),
     password VARCHAR(255)
 );
+CREATE TABLE api_keys (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(255),
+        key VARCHAR(255)
+)

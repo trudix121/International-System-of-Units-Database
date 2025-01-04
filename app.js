@@ -17,12 +17,15 @@ const index = require('./routers/index')
 const admin = require('./routers/admin')
 const auth = require('./routers/auth')
 const home = require('./routers/home')
+const api  = require('./routers/api')
+
 
 app.use('/', index)
 app.use('/admin', admin)
 app.use('/auth', auth)
 app.use('/users', home)
+app.use('/api', api)
 
 app.listen(process.env.PORT, ()=>{
-    console.log('SUCCESS')
+    console.log(`Server Running on http://localhost:${process.env.PORT}`)
 })

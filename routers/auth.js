@@ -16,7 +16,17 @@ router.use(express.urlencoded({extended:true}))
 router.use(express.json())
 
 router.get('/login', (req, res) => {
-    res.render('auth/login')
+    console.log(req.cookies)
+    try {
+        const verify = jwt.verify(req.cookies.token, process.env.JWT)
+        if (verify) {
+            res.redirect('/users')
+        }
+    }
+    catch (error) {
+        res.render('auth/login')
+    }
+
 })
 
 router.post('/login',async (req, res) => {
@@ -35,7 +45,7 @@ router.post('/login',async (req, res) => {
                     httpOnly: true, // Previne accesul JavaScript la cookie
                     maxAge: 3600000 // 1 oră
                 });
-                res.redirect('/users/dashboard')
+                res.redirect('/users')
             }
         }
     }
@@ -63,6 +73,9 @@ router.post('/register', (req, res) => {
     })
 })
 
-
+router.get('/logout', jwtverify, (req, res) => {
+    res.clearCookie('token')
+    res.redirect('/')
+})
 
 module.exports = router
