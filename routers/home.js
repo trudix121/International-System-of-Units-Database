@@ -14,15 +14,15 @@ router.use(cookieParser())
 router.use(jwtverify)
 
 
-router.get('/dashboard', async (req, res) => {
+router.get('/suggest', async (req, res) => {
     const user = await pool.query('SELECT * FROM users WHERE username = $1;', [req.user.username])
-    res.render('home/home', {data: user.rows[0]})
+    res.render('home/suggest', {data: user.rows[0]})
 })
 
 router.post('/suggest', async (req, res) => {
     //console.log(req.body)
     const {unit_type, unit_name, base_unit, formulas, unit, symbol, measures, measuring_instruments, conversion_names, conversion_symbols, conversion_formulas} = req.body
-    console.log(req.body)
+  //  console.log(req.body)
     let formula;
     if (req.body.base_formula == null) {
         formula = formulas[0]
@@ -46,9 +46,18 @@ router.post('/suggest', async (req, res) => {
             'conversion_formulas': conversion_formulas
         }
     })
-    res.send('Your Request was submitted successfully <a href="/users/dashboard">Return to Home</a>')
+    res.send('Your Request was submitted successfully <a href="/users/">Return to Home</a>')
 })
 
+router.get('/', (req, res) => {
+    res.render('home/index', {user:req.user})
+})
+
+router.get('/leaderboard', async (req, res) => {
+    const rest = await pool.query('SELECT requests,username FROM users')
+   // console.log(rest.rows)
+    res.render('home/leaderboard', {users:rest.rows})
+})
 
 
 

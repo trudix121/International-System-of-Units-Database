@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { pool } = require('../db/postdb');
+const { pool, updateUser } = require('../db/postdb');
 const { db, insert, find } = require('../db/mongodb');
 router.use(express.urlencoded({ extended: true }))
 router.use(express.json())
@@ -153,7 +153,7 @@ router.get('/accept/:id', cookiejwt, async (req, res) => {
     try {
         // Convert the string id to an ObjectId using 'new'
         const objectId = new ObjectId(id);
-        console.log(objectId)
+      //  console.log(objectId)
 
         // Access the requests collection
         const rest = db.collection('requests');
@@ -162,13 +162,23 @@ router.get('/accept/:id', cookiejwt, async (req, res) => {
         const result = await rest.findOneAndUpdate(
             { '_id': objectId },
             { $set: { 'accepted': true } },
-            { returnOriginal: false } // Optionally return the updated document
+            { returnOriginal: false }
         );
+
         if (result != null) {
-            res.redirect('/admin/requests')
-        }
-        else if (result == null) {
-            res.send('Some Error, Request was not found')
+            // Redenumit variabila res în dbResult pentru a evita conflictul
+
+
+            try {
+                const dbResult = await pool.query('SELECT * FROM users WHERE username = $1;', [result.username]);
+                // console.log(await pool.query('SELECT * FROM users WHERE username = $1;', [result.username]))
+                await updateUser(dbResult.rows[0].username, 'requests', dbResult.rows[0].requests + 1);
+                res.redirect('/admin/requests');
+            } catch (error) {
+                res.status(500).send('Error: ' + error);
+            }
+        } else {
+            res.status(404).send('Some Error, Request was not found');
         }
     } catch (error) {
         console.error("Error accepting request:", error);

@@ -275,7 +275,7 @@
             <a href="" onclick="confirm1()" class="button">Accept</a>
             <a href="/admin/reject/<%= user._id %>" class="button reject">Reject</a>
             <a href="/admin/delete/<%= user._id %>" class="button reject">Delete</a>
-            <a href="/admin/requests/" class="button_back">Back <%=user._id%> </a>
+            <a href="/admin/requests/" class="button_back">Back </a>
             <% } %>
 
 
@@ -286,6 +286,9 @@
                 if(confirm('Do you want to add to main collection?'))
                 {
                     window.location.href='/admin/add/<%= user._id %>'
+                }
+                else{
+                    window.location.href='/admin/accept/<%=user._id%>'
                 }
             }
 

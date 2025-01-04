@@ -9,37 +9,47 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #f4f4f4;
+            background-color: #121212;
+            /* Dark background */
+            color: #ffffff;
+            /* Light text color */
         }
 
         h1,
         h2 {
-            color: #333;
+            color: #ffffff;
+            /* Light text color for headers */
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 10px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
-            background-color: #fff;
+            background-color: #1e1e1e;
+            /* Darker table background */
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
 
         th,
         td {
-            border: 1px solid #ddd;
+            border: 1px solid #444;
+            /* Darker border */
             padding: 12px;
             text-align: left;
         }
 
         th {
             background-color: #007BFF;
+            /* Blue for header */
             color: white;
         }
 
         tr:hover {
-            background-color: #f1f1f1;
+            background-color: #333;
+            /* Slightly lighter on hover */
         }
 
         .button-container {
@@ -48,7 +58,7 @@
 
         .button {
             background-color: #007BFF;
-            /* Blue for view */
+            /* Blue for buttons */
             color: white;
             border: none;
             padding: 10px 15px;
@@ -78,102 +88,126 @@
 
     <h1>User Requests</h1>
 
-<!-- Accepted Requests Section -->
-<h2>Accepted Requests</h2>
-<% const acceptedRequests = users.filter(user => user.accepted); %>
-<% if (acceptedRequests.length > 0) { %>
-    <% acceptedRequests.forEach(user => { %>
-        <table>
-            <thead>
-                <tr>
-                    <th>Unit Type</th>
-                    <th>Unit Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><%= user.suggest.unit_type %></td>
-                    <td><%= user.suggest.unit_name %></td>
-                    <td class="button-container">
-                        <a href="/admin/view/<%= user._id %>" class="button">View</a>
-                        <a href="/admin/delete/<%= user._id %>" class="button reject">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    <% }); %>
-<% } else { %>
-    <p>No accepted requests available.</p>
-<% } %>
+    <!-- Accepted Requests Section -->
+    <h2>Accepted Requests</h2>
+    <% const acceptedRequests=users.filter(user=> user.accepted); %>
+        <% if (acceptedRequests.length> 0) { %>
+            <% acceptedRequests.forEach(user=> { %>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Unit Type</th>
+                            <th>Unit Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <%= user.suggest.unit_type %>
+                            </td>
+                            <td>
+                                <%= user.suggest.unit_name %>
+                            </td>
+                            <td class="button-container">
+                                <a href="/admin/view/<%= user._id %>" class="button">View</a>
+                                <a href="/admin/delete/<%= user._id %>" class="button reject">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <% }); %>
+                    <% } else { %>
+                        <p>No accepted requests available.</p>
+                        <% } %>
 
-<!-- Rejected Requests Section -->
-<h2>Rejected Requests</h2>
-<% const rejectedRequests = users.filter(user => user.rejected); %>
-<% if (rejectedRequests.length > 0) { %>
-    <% rejectedRequests.forEach(user => { %>
-        <table style="margin-top:20px;">
-            <thead>
-                <tr>
-                    <th>Unit Type</th>
-                    <th>Unit Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><%= user.suggest.unit_type %></td>
-                    <td><%= user.suggest.unit_name %></td>
-                    <td class="button-container">
-                        <a href="/admin/view/<%= user._id %>" class="button">View</a>
-                        <a href="/admin/delete/<%= user._id %>" class="button reject">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    <% }); %>
-<% } else { %>
-    <p>No rejected requests available.</p>
-<% } %>
+                            <!-- Rejected Requests Section -->
+                            <h2>Rejected Requests</h2>
+                            <% const rejectedRequests=users.filter(user=> user.rejected); %>
+                                <% if (rejectedRequests.length> 0) { %>
+                                    <% rejectedRequests.forEach(user=> { %>
+                                        <table style="margin-top:20px;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Unit Type</th>
+                                                    <th>Unit Name</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <%= user.suggest.unit_type %>
+                                                    </td>
+                                                    <td>
+                                                        <%= user.suggest.unit_name %>
+                                                    </td>
+                                                    <td class="button-container">
+                                                        <a href="/admin/view/<%= user._id %>" class="button">View</a>
+                                                        <a href="/admin/delete/<%= user._id %>"
+                                                            class="button reject">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <% }); %>
+                                            <% } else { %>
+                                                <p>No rejected requests available.</p>
+                                                <% } %>
 
-<!-- Pending Requests Section -->
-<h2>Pending Requests</h2>
-<% const pendingRequests = users.filter(user => !user.accepted && !user.rejected); %>
-<% if (pendingRequests.length > 0) { %>
-    <% pendingRequests.forEach(user => { %>
-        <table style="margin-top:20px;">
-            <thead>
-                <tr>
-                    <th>Unit Type</th>
-                    <th>Unit Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><%= user.suggest.unit_type %></td>
-                    <td><%= user.suggest.unit_name %></td>
-                    <td class="button-container">
-                        <a href="/admin/view/<%= user._id %>" class="button">View</a>
-                        <a href="" onclick="confirm1()" class="button">Accept</a>
-                        <a href="/admin/reject/<%= user._id %>" class="button reject">Reject</a>
-                        <a href="/admin/delete/<%= user._id %>" class="button reject">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <script>
-            function confirm1() {
-                if (confirm('Do you want to add to main collection?')) {
-                    window.location.href = '/admin/add/<%= user._id %>'
-                }
-            }
+                                                    <!-- Pending Requests Section -->
+                                                    <h2>Pending Requests</h2>
+                                                    <% const pendingRequests=users.filter(user=> !user.accepted &&
+                                                        !user.rejected); %>
+                                                        <% if (pendingRequests.length> 0) { %>
+                                                            <% pendingRequests.forEach(user=> { %>
+                                                                <table style="margin-top:20px;">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Unit Type</th>
+                                                                            <th>Unit Name</th>
+                                                                            <th>Actions</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <%= user.suggest.unit_type %>
+                                                                            </td>
+                                                                            <td>
+                                                                                <%= user.suggest.unit_name %>
+                                                                            </td>
+                                                                            <td class="button-container">
+                                                                                <a href="/admin/view/<%= user._id %>"
+                                                                                    class="button">View</a>
+                                                                                <!-- Confirm Accept with JavaScript -->
+                                                                                <a href="#"
+                                                                                    onclick="confirmAccept('/admin/accept/<%= user._id %>')"
+                                                                                    class="button">Accept</a>
+                                                                                <a href="/admin/reject/<%= user._id %>"
+                                                                                    class="button reject">Reject</a>
+                                                                                <a href="/admin/delete/<%= user._id %>"
+                                                                                    class="button reject">Delete</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                                                                                                <script>
+                                                                                                                                                    // Function to confirm acceptance
+                                                                                                                                                    function confirmAccept(url) {
+                                                                                                                                                        if (confirm("Do you want to add this request to the main collection?")) {
+                                                                                                                                                            window.location.href = `${url}?`; // Redirect to the accept URL if confirmed
+                                                                                                                                                        }
+                                                                                                                                                        else {
+                                                                                                                                                            window.location.href = '/admin/accept/<%= user._id %>'
+                                                                                                                                                        }
+                                                                                                                                                    }
+                                                                                                                                                </script>
+                                                                </table>
+                                                                <% });%>
+                                                                    <% } else {%>
+                                                                        <p>No pending requests available.</p>
+                                                                        <% }%>
 
-        </script>
-    <% }); %>
-<% } else { %>
-    <p>No pending requests available.</p>
-<% } %>
 
 
 </body>
